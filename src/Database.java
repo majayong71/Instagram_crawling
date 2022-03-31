@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class Database {
 
-    static String img1,img2,img3,img4,img5,img6,img7,img8
+    static String img0,img1,img2,img3,img4,img5,img6,img7,img8
             ,img9,img10,img11,img12,img13,img14,img15,img16,
             img17 = null;
 
@@ -58,10 +58,14 @@ public class Database {
                         .replace("width:100%;height:99px;background-image:url(\"", "")
                         .replace("\")", "");
 
-                if (i == 7) {
+
+                if (i == 6) {
+                    img0 = e2;
+                    System.out.println(img0 + " img0 ");
+                }else if ( i == 7) {
                     img1 = e2;
                     System.out.println(img1 + " img1 ");
-                } else if (i == 8) {
+                }else if (i == 8) {
                     img2 = e2;
                     System.out.println(img2 + " img2 ");
                 } else if (i == 9) {
@@ -129,10 +133,10 @@ public class Database {
 
             pstmt = con.prepareStatement(sql);
 
-            pstmt.setInt(1,0);
-            pstmt.setString(2,"텐동집 (음식점)");
-            pstmt.setString(3,"실시간");
-            pstmt.setString(4,img1);
+            pstmt.setInt(1,0);                    //count
+            pstmt.setString(2,"카페 [안온]");   //placeType
+            pstmt.setString(3,"실시간");           //timeType
+            pstmt.setString(4,img1);                //img_source
 
             pstmt.executeUpdate();
 
@@ -147,6 +151,9 @@ public class Database {
             System.err.println("에러 발생 . " + e.getMessage());
             e.printStackTrace();
         }
+
+    }
+}
 
 
 //        Connection con;
@@ -206,8 +213,7 @@ public class Database {
 //
 //    }
 
-    }
-}
+
 
 
 
