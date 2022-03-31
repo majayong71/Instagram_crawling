@@ -7,50 +7,114 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import javax.xml.crypto.Data;
 import java.io.IOException;
 
-// cb7hz QmdzL
+public class Database {
 
+    static String img1,img2,img3,img4,img5,img6,img7,img8
+            ,img9,img10,img11,img12,img13,img14,img15,img16,
+            img17 = null;
 
-public class database {
+    static Connection con;
+    static PreparedStatement pstmt;
 
-    static String result;
-
-    public static void crawling_data() {  // 크롤링 데이터 값
+    public Database() {  // 데이터베이스 생성 , 인스턴스화
 
         try {
-
-            String url = "https://finance.naver.com/item/main.nhn?code=086900";
-
-            Document doc = Jsoup.connect(url).get();
-
-            Elements e1 = doc.getElementsByAttributeValue("class", "no_today");
-            Element e2 = e1.get(0);
-            Elements e3 = e2.select("span");
-
-            result = e3.get(0).text();
-
-            System.out.println(result);
-
-        } catch (IOException e) {
-            System.err.println(" 에러가 났습니다 . ");
+            // 드라이버 로딩.
+            Class.forName("com.mysql.cj.jdbc.Driver"); // 객체화 하는 과정 , 메모리상에 잡히게 된다.
+            // 연결하기.
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nawa", "root", "QhrtnswoTkddl1!6");
+            System.out.println(" ");
+            System.out.println("연결 됐습니다.");
+            System.out.println(" ");
+        } catch (ClassNotFoundException e) {
+            System.err.println(" 에러가 났습니다. (드라이버 로딩 실패) " + e.getMessage());
+            e.printStackTrace(); // 에러가 어디서 났는지 알려주고 전체적인 결과를 노출해준다.
+        } catch (SQLException e) {
+            System.out.println("에러: " + e);
         }
     }
 
     public static void main(String[] args) {
 
-        Connection con;
-        PreparedStatement pstmt;
+        System.out.println();
 
-        String img1 = "https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/275623616_1116531799135726_9169152130124622986_n.webp?stp=dst-webp_e35&cb=9ad74b5e-95d2b877&_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=110&_nc_ohc=LWgvYNxoutcAX9muQaQ&tn=nZuhcPgjqr4tEv-a&edm=ALQROFkBAAAA&ccb=7-4&ig_cache_key=Mjc5MjA4OTk0MTcwMzQzMDM3Mg%3D%3D.2-ccb7-4&oh=00_AT8W0IQzknNAIwD5XYRHLZ69P0kAG1TfkRi32UR1GjrV6w&oe=6232F814&_nc_sid=30a2ef";
-        String img2 = "https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/275518448_695670461614736_3706352208556107491_n.webp?stp=dst-webp_e35&cb=9ad74b5e-95d2b877&_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=108&_nc_ohc=T7su0dRV-ZcAX_hnUkK&edm=ABZsPhsBAAAA&ccb=7-4&ig_cache_key=Mjc5MjA4OTQ0NzU4OTI5NjY3NQ%3D%3D.2-ccb7-4&oh=00_AT_vmEHXoqjMJNc5zQSgnyM8kZmlsJK0XGkdWRsGXCsOuQ&oe=62326362&_nc_sid=4efc9f";
-        String img3 = "https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/275515289_127866999788066_6464758431883133110_n.webp?stp=dst-webp_e35&cb=9ad74b5e-95d2b877&_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=102&_nc_ohc=3w-iBRLRqV4AX8Y-iv-&edm=ABZsPhsBAAAA&ccb=7-4&ig_cache_key=Mjc5MTE4MzgxMTk1NzAwMDQ0OA%3D%3D.2-ccb7-4&oh=00_AT_FPEa4C2xI4VW2RIsecg-WcIreAwOuLomN0pX5H2kuIQ&oe=6232F208&_nc_sid=4efc9f";
-        String img4 = "https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/275515289_127866999788066_6464758431883133110_n.webp?stp=dst-webp_e35&cb=9ad74b5e-95d2b877&_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=102&_nc_ohc=3w-iBRLRqV4AX8Y-iv-&edm=ABZsPhsBAAAA&ccb=7-4&ig_cache_key=Mjc5MTE4MzgxMTk1NzAwMDQ0OA%3D%3D.2-ccb7-4&oh=00_AT_FPEa4C2xI4VW2RIsecg-WcIreAwOuLomN0pX5H2kuIQ&oe=6232F208&_nc_sid=4efc9f";
-        String img5 = "https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/275226200_527292192347149_2842015571693201285_n.webp?stp=dst-webp_e35&cb=9ad74b5e-95d2b877&_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=101&_nc_ohc=ncxbAeS-J1sAX949oRT&tn=nZuhcPgjqr4tEv-a&edm=ABZsPhsBAAAA&ccb=7-4&ig_cache_key=Mjc4ODI5MjkxMzQzNDg4MTMwOQ%3D%3D.2-ccb7-4&oh=00_AT9eMTDm6Hm1ng3ePhkhE5wXt_sGjSJqywgFXq0ssErTVA&oe=6233C219&_nc_sid=4efc9f";
-        String img6 = "https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/275612768_1601637100204637_1164132206439927686_n.jpg?stp=dst-webp_e35&cb=9ad74b5e-95d2b877&_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=105&_nc_ohc=z3dsxCPbLMYAX8oKaq5&edm=ABZsPhsBAAAA&ccb=7-4&ig_cache_key=Mjc5MTg4MDQxODQ4NjI4MzQ0NA%3D%3D.2-ccb7-4&oh=00_AT8LT5khjso53ZUCiaevrAGhQ0SH8HuLniwNFQjsnIyJlw&oe=62341C3A&_nc_sid=4efc9f";
-        String img7 = "https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/275599894_507620457693228_2872863216210058671_n.jpg?stp=dst-webp_e35&cb=9ad74b5e-95d2b877&_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=100&_nc_ohc=llHhFXt1r40AX93sPqN&edm=ABZsPhsBAAAA&ccb=7-4&ig_cache_key=Mjc5MjAzOTY2NjYxOTkwNDc3MQ%3D%3D.2-ccb7-4&oh=00_AT-qYS-P9ECKQC1hcI-s9b95DbpKVvPY7zv2mZF469GqtA&oe=623350DB&_nc_sid=4efc9f";
-        String img8 = "https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/275541226_4914518948631281_2856873257723146173_n.jpg?stp=dst-webp_e35&cb=9ad74b5e-95d2b877&_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=105&_nc_ohc=2UnrRgpIqVMAX89aNQW&edm=ABZsPhsBAAAA&ccb=7-4&ig_cache_key=Mjc5MjAzNjc5NjY2ODEyOTI1Mw%3D%3D.2-ccb7-4&oh=00_AT-mMbTWqSYy415WJZmLwHw2doKep1VSHN7foOd54rI0hA&oe=62341611&_nc_sid=4efc9f";
-        String img9 = "https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/275274400_999330507340628_1696192635965113904_n.webp?stp=dst-webp_e35&cb=9ad74b5e-95d2b877&_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=108&_nc_ohc=lNKalh6cBQgAX86-g4d&edm=ABZsPhsBAAAA&ccb=7-4&ig_cache_key=Mjc4Njg2NjQzNTM1MDM1MDU0MQ%3D%3D.2-ccb7-4&oh=00_AT-4Pj4PO-P7D5p5e-mWTwsbQYh3CwkZV-bBq2sWSQt0NQ&oe=62343ADC&_nc_sid=4efc9f";
+        String url = "https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=%ED%99%8D%EB%8C%80+%EB%A7%9B%EC%A7%91&oquery=%ED%99%8D%EB%8C%80+%EB%A7%9B%EC%A7%91&tqi=hC6%2F%2Fsp0J14ssnoOIKVssssss%2B4-003887";
+        Document doc;
+
+        try {
+
+            doc = Jsoup.connect(url).get();
+
+            Elements e1 = doc.getElementsByAttributeValue("class", "cb7hz QmdzL");
+
+            for (int i = 6; i < 24; i++) {
+
+                String e2 = e1.get(i)
+                        .attr("style")
+                        .replace("width:100%;height:99px;background-image:url(\"", "")
+                        .replace("\")", "");
+
+                if (i == 7) {
+                    img1 = e2;
+                    System.out.println(img1 + " img1 ");
+                } else if (i == 8) {
+                    img2 = e2;
+                    System.out.println(img2 + " img2 ");
+                } else if (i == 9) {
+                    img3 = e2;
+                    System.out.println(img3 + " img3 ");
+                } else if (i == 10) {
+                    img4 = e2;
+                    System.out.println(img4 + " img4 ");
+                } else if (i == 11) {
+                    img5 = e2;
+                    System.out.println(img5 + " img5 ");
+                } else if (i == 12) {
+                    img6 = e2;
+                    System.out.println(img6 + " img6 ");
+                } else if (i == 13) {
+                    img7 = e2;
+                    System.out.println(img7 + " img7 ");
+                } else if (i == 14) {
+                    img8 = e2;
+                    System.out.println(img8 + " img8 ");
+                } else if (i == 15) {
+                    img9 = e2;
+                    System.out.println(img9 + " img9 ");
+                } else if (i == 16) {
+                    img10 = e2;
+                    System.out.println(img10 + " img10 ");
+                } else if (i == 17) {
+                    img11 = e2;
+                    System.out.println(img11 + " img11 ");
+                } else if (i == 18) {
+                    img12 = e2;
+                    System.out.println(img12 + " img12 ");
+                } else if (i == 19) {
+                    img13 = e2;
+                    System.out.println(img13 + " img13 ");
+                } else if (i == 20) {
+                    img14 = e2;
+                    System.out.println(img14 + " img14 ");
+                } else if (i == 21) {
+                    img15 = e2;
+                    System.out.println(img15 + " img15 ");
+                } else if (i == 22) {
+                    img16 = e2;
+                    System.out.println(img16 + " img16 ");
+                } else if (i == 23) {
+                    img17 = e2;
+                    System.out.println(img17 + " img17 ");
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("에러 발생" + e.getMessage());
+            e.printStackTrace();
+        }
 
         try {
 
@@ -68,7 +132,7 @@ public class database {
             pstmt.setInt(1,0);
             pstmt.setString(2,"텐동집 (음식점)");
             pstmt.setString(3,"실시간");
-            pstmt.setString(4,img9);
+            pstmt.setString(4,img1);
 
             pstmt.executeUpdate();
 
@@ -83,10 +147,43 @@ public class database {
             System.err.println("에러 발생 . " + e.getMessage());
             e.printStackTrace();
         }
-    }
-}
 
 
+//        Connection con;
+//        PreparedStatement pstmt;
+
+//        try {
+//
+//            String sql = "INSERT INTO crawling(count,placeType,created,timeType,img_source)values(?,?,now(),?,?)";
+//
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+//            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nawa", "root", "QhrtnswoTkddl1!6");
+//
+//            System.out.println(" ");
+//            System.out.println("연결 됐습니다.");
+//            System.out.println(" ");
+//
+//            pstmt = con.prepareStatement(sql);
+//
+//            pstmt.setInt(1,0);
+//            pstmt.setString(2,"텐동집 (음식점)");
+//            pstmt.setString(3,"실시간");
+//            pstmt.setString(4,img9);
+//
+//            pstmt.executeUpdate();
+//
+//            System.out.println("확인");
+//
+//            pstmt.close();
+//            con.close();
+//
+//        } catch (ClassNotFoundException e) {
+//            System.err.println(" 에러가 났습니다. (드라이버 로딩 실패) " + e.getMessage());
+//        } catch (SQLException e) {
+//            System.err.println("에러 발생 . " + e.getMessage());
+//            e.printStackTrace();
+//        }
+//
 
 //    public database() {
 //
@@ -108,6 +205,9 @@ public class database {
 //        }
 //
 //    }
+
+    }
+}
 
 
 

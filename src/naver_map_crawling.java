@@ -11,23 +11,86 @@ public class naver_map_crawling {
         String url = "https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=%ED%99%8D%EB%8C%80+%EB%A7%9B%EC%A7%91&oquery=%ED%99%8D%EB%8C%80+%EB%A7%9B%EC%A7%91&tqi=hC6%2F%2Fsp0J14ssnoOIKVssssss%2B4-003887";
         Document doc;
 
-            try
+        try {
 
-            {
-                doc = Jsoup.connect(url) .get();
+            doc = Jsoup.connect(url).get();
 
-                Elements e1 = doc.getElementsByAttributeValue("class","cb7hz QmdzL");
+            Elements e1 = doc.getElementsByAttributeValue("class", "cb7hz QmdzL");
 
-                for (int i = 6; i < 24; i++ ) {
+            for (int i = 6; i < 24; i++) {
 
-                    String e2 = e1.get(i)
-                            .attr("style")
-                            .replace("width:100%;height:99px;background-image:url(\"","")
-                            .replace("\")","");
+                String e2 = e1.get(i)
+                        .attr("style")
+                        .replace("width:100%;height:99px;background-image:url(\"", "")
+                        .replace("\")", "");
 
-
-                    System.out.println(e2);
+                if (i == 7) {
+                    String img1 = e2;
+                    System.out.println(img1 + " img1 ");
+                } else if (i == 8) {
+                    String img2 = e2;
+                    System.out.println(img2 + " img2 ");
+                } else if (i == 9) {
+                    String img3 = e2;
+                    System.out.println(img3 + " img3 ");
+                } else if (i == 10) {
+                    String img4 = e2;
+                    System.out.println(img4 + " img4 ");
+                } else if (i == 11) {
+                    String img5 = e2;
+                    System.out.println(img5 + " img5 ");
+                } else if (i == 12) {
+                    String img6 = e2;
+                    System.out.println(img6 + " img6 ");
+                } else if (i == 13) {
+                    String img7 = e2;
+                    System.out.println(img7 + " img7 ");
+                } else if (i == 14) {
+                    String img8 = e2;
+                    System.out.println(img8 + " img8 ");
+                } else if (i == 15) {
+                    String img9 = e2;
+                    System.out.println(img9 + " img9 ");
+                } else if (i == 16) {
+                    String img10 = e2;
+                    System.out.println(img10 + " img10 ");
+                } else if (i == 17) {
+                    String img11 = e2;
+                    System.out.println(img11 + " img11 ");
+                } else if (i == 18) {
+                    String img12 = e2;
+                    System.out.println(img12 + " img12 ");
+                } else if (i == 19) {
+                    String img13 = e2;
+                    System.out.println(img13 + " img13 ");
+                } else if (i == 20) {
+                    String img14 = e2;
+                    System.out.println(img14 + " img14 ");
+                } else if (i == 21) {
+                    String img15 = e2;
+                    System.out.println(img15 + " img15 ");
+                } else if (i == 22) {
+                    String img16 = e2;
+                    System.out.println(img16 + " img16 ");
+                } else if (i == 23) {
+                    String img17 = e2;
+                    System.out.println(img17 + " img17 ");
                 }
+
+                // e2 를 변수에 하나씩 담으면 되겠다.
+                // 조건문을 이용해보자.
+            }
+
+        } catch (IOException e) {
+            System.out.println("에러 발생" + e.getMessage());
+            e.printStackTrace();
+        }
+
+    }
+}
+
+
+
 
 
 //        try   // 네이버 지도에서 직접 크롤링 코드
@@ -62,14 +125,3 @@ public class naver_map_crawling {
 //            Elements e1 = doc.select("span.thumb_bd");
 //
 //            System.out.println(e1);
-
-        }
-        catch (IOException e)
-        {
-            System.out.println("에러 발생"+ e.getMessage());
-            e.printStackTrace();
-        }
-
-    }
-}
-
