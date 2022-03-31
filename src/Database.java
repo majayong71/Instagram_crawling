@@ -27,9 +27,9 @@ public class Database {
             Class.forName("com.mysql.cj.jdbc.Driver"); // 객체화 하는 과정 , 메모리상에 잡히게 된다.
             // 연결하기.
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nawa", "root", "QhrtnswoTkddl1!6");
-            System.out.println(" ");
+            System.out.println("  ");
             System.out.println("연결 됐습니다.");
-            System.out.println(" ");
+            System.out.println("  ");
         } catch (ClassNotFoundException e) {
             System.err.println(" 에러가 났습니다. (드라이버 로딩 실패) " + e.getMessage());
             e.printStackTrace(); // 에러가 어디서 났는지 알려주고 전체적인 결과를 노출해준다.
