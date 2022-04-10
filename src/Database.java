@@ -3,12 +3,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import javax.xml.crypto.Data;
 import java.io.IOException;
 
 public class Database {
@@ -18,11 +16,33 @@ public class Database {
             img17 = null;
 
     static Connection con;
+    static Statement st;
     static PreparedStatement pstmt;
+    static ResultSet rs;
+//
+//    public Database() {  // 데이터베이스 생성 , 인스턴스화
+//
+//        try {
+//            // 드라이버 로딩.
+//            Class.forName("com.mysql.cj.jdbc.Driver"); // 객체화 하는 과정 , 메모리상에 잡히게 된다.
+//            // 연결하기.
+//            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nawa", "root", "QhrtnswoTkddl1!6");
+//            System.out.println(" ");
+//            System.out.println("연결 됐습니다.");
+//            System.out.println(" ");
+//        } catch (ClassNotFoundException e) {
+//            System.err.println(" 에러가 났습니다. (드라이버 로딩 실패) " + e.getMessage());
+//            e.printStackTrace(); // 에러가 어디서 났는지 알려주고 전체적인 결과를 노출해준다.
+//        } catch (SQLException e) {
+//            System.out.println("에러: " + e);
+//            e.printStackTrace();
+//        }
+//    }
 
-    public Database() {  // 데이터베이스 생성 , 인스턴스화
+    public static void main(String[] args) {
 
         try {
+            String sql = "SELECT * FROM CRAWLING;";
             // 드라이버 로딩.
             Class.forName("com.mysql.cj.jdbc.Driver"); // 객체화 하는 과정 , 메모리상에 잡히게 된다.
             // 연결하기.
@@ -30,127 +50,150 @@ public class Database {
             System.out.println(" ");
             System.out.println("연결 됐습니다.");
             System.out.println(" ");
+
+            st = con.createStatement();
+
+            rs = st.executeQuery(sql);
+
+            System.out.println(rs);
+
+            while (rs.next())
+            {
+                img0 = rs.getString(5);
+                System.out.println
+                        (
+//                                        rs.getString(1) + "\t" +
+//                                        rs.getString(2) + "\t" +
+//                                        rs.getString(3) + "\t" +
+//                                        rs.getString(4) + "\t" +
+                                        rs.getString(5) + "\t"
+                        );
+                System.out.println(img0);
+            }
+
+
+
         } catch (ClassNotFoundException e) {
             System.err.println(" 에러가 났습니다. (드라이버 로딩 실패) " + e.getMessage());
             e.printStackTrace(); // 에러가 어디서 났는지 알려주고 전체적인 결과를 노출해준다.
         } catch (SQLException e) {
             System.out.println("에러: " + e);
-        }
-    }
-
-    public static void main(String[] args) {
-
-        System.out.println();
-
-        String url = "https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=%ED%99%8D%EB%8C%80+%EB%A7%9B%EC%A7%91&oquery=%ED%99%8D%EB%8C%80+%EB%A7%9B%EC%A7%91&tqi=hC6%2F%2Fsp0J14ssnoOIKVssssss%2B4-003887";
-        Document doc;
-
-        try {
-
-            doc = Jsoup.connect(url).get();
-
-            Elements e1 = doc.getElementsByAttributeValue("class", "cb7hz QmdzL");
-
-            for (int i = 6; i < 24; i++) {
-
-                String e2 = e1.get(i)
-                        .attr("style")
-                        .replace("width:100%;height:99px;background-image:url(\"", "")
-                        .replace("\")", "");
-
-
-                if (i == 6) {
-                    img0 = e2;
-                    System.out.println(img0 + " img0 ");
-                }else if ( i == 7) {
-                    img1 = e2;
-                    System.out.println(img1 + " img1 ");
-                }else if (i == 8) {
-                    img2 = e2;
-                    System.out.println(img2 + " img2 ");
-                } else if (i == 9) {
-                    img3 = e2;
-                    System.out.println(img3 + " img3 ");
-                } else if (i == 10) {
-                    img4 = e2;
-                    System.out.println(img4 + " img4 ");
-                } else if (i == 11) {
-                    img5 = e2;
-                    System.out.println(img5 + " img5 ");
-                } else if (i == 12) {
-                    img6 = e2;
-                    System.out.println(img6 + " img6 ");
-                } else if (i == 13) {
-                    img7 = e2;
-                    System.out.println(img7 + " img7 ");
-                } else if (i == 14) {
-                    img8 = e2;
-                    System.out.println(img8 + " img8 ");
-                } else if (i == 15) {
-                    img9 = e2;
-                    System.out.println(img9 + " img9 ");
-                } else if (i == 16) {
-                    img10 = e2;
-                    System.out.println(img10 + " img10 ");
-                } else if (i == 17) {
-                    img11 = e2;
-                    System.out.println(img11 + " img11 ");
-                } else if (i == 18) {
-                    img12 = e2;
-                    System.out.println(img12 + " img12 ");
-                } else if (i == 19) {
-                    img13 = e2;
-                    System.out.println(img13 + " img13 ");
-                } else if (i == 20) {
-                    img14 = e2;
-                    System.out.println(img14 + " img14 ");
-                } else if (i == 21) {
-                    img15 = e2;
-                    System.out.println(img15 + " img15 ");
-                } else if (i == 22) {
-                    img16 = e2;
-                    System.out.println(img16 + " img16 ");
-                } else if (i == 23) {
-                    img17 = e2;
-                    System.out.println(img17 + " img17 ");
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("에러 발생" + e.getMessage());
             e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("검색 실패 : " +e.getMessage());
         }
 
-        try {
-
-            String sql = "INSERT INTO crawling(count,placeType,created,timeType,img_source)values(?,?,now(),?,?)";
-
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nawa", "root", "QhrtnswoTkddl1!6");
-
-            System.out.println(" ");
-            System.out.println("연결 됐습니다.");
-            System.out.println(" ");
-
-            pstmt = con.prepareStatement(sql);
-
-            pstmt.setInt(1,0);                    //count
-            pstmt.setString(2,"카페 [안온]");   //placeType
-            pstmt.setString(3,"실시간");           //timeType
-            pstmt.setString(4,img1);                //img_source
-
-            pstmt.executeUpdate();
-
-            System.out.println("확인");
-
-            pstmt.close();
-            con.close();
-
-        } catch (ClassNotFoundException e) {
-            System.err.println(" 에러가 났습니다. (드라이버 로딩 실패) " + e.getMessage());
-        } catch (SQLException e) {
-            System.err.println("에러 발생 . " + e.getMessage());
-            e.printStackTrace();
-        }
+//        System.out.println();
+//
+//        String url = "https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=%ED%99%8D%EB%8C%80+%EB%A7%9B%EC%A7%91&oquery=%ED%99%8D%EB%8C%80+%EB%A7%9B%EC%A7%91&tqi=hC6%2F%2Fsp0J14ssnoOIKVssssss%2B4-003887";
+//        Document doc;
+//
+//        try {  // 데이터 크롤링 해오는 구문
+//
+//            doc = Jsoup.connect(url).get();
+//
+//            Elements e1 = doc.getElementsByAttributeValue("class", "cb7hz QmdzL");
+//
+//            for (int i = 6; i < 24; i++) { //
+//
+//                String e2 = e1.get(i)
+//                        .attr("style")
+//                        .replace("width:100%;height:99px;background-image:url(\"", "")
+//                        .replace("\")", "");
+//
+//
+//                if (i == 6) {
+//                    img0 = e2;
+//                    System.out.println(img0 + " img0 ");
+//                }else if ( i == 7) {
+//                    img1 = e2;
+//                    System.out.println(img1 + " img1 ");
+//                }else if (i == 8) {
+//                    img2 = e2;
+//                    System.out.println(img2 + " img2 ");
+//                } else if (i == 9) {
+//                    img3 = e2;
+//                    System.out.println(img3 + " img3 ");
+//                } else if (i == 10) {
+//                    img4 = e2;
+//                    System.out.println(img4 + " img4 ");
+//                } else if (i == 11) {
+//                    img5 = e2;
+//                    System.out.println(img5 + " img5 ");
+//                } else if (i == 12) {
+//                    img6 = e2;
+//                    System.out.println(img6 + " img6 ");
+//                } else if (i == 13) {
+//                    img7 = e2;
+//                    System.out.println(img7 + " img7 ");
+//                } else if (i == 14) {
+//                    img8 = e2;
+//                    System.out.println(img8 + " img8 ");
+//                } else if (i == 15) {
+//                    img9 = e2;
+//                    System.out.println(img9 + " img9 ");
+//                } else if (i == 16) {
+//                    img10 = e2;
+//                    System.out.println(img10 + " img10 ");
+//                } else if (i == 17) {
+//                    img11 = e2;
+//                    System.out.println(img11 + " img11 ");
+//                } else if (i == 18) {
+//                    img12 = e2;
+//                    System.out.println(img12 + " img12 ");
+//                } else if (i == 19) {
+//                    img13 = e2;
+//                    System.out.println(img13 + " img13 ");
+//                } else if (i == 20) {
+//                    img14 = e2;
+//                    System.out.println(img14 + " img14 ");
+//                } else if (i == 21) {
+//                    img15 = e2;
+//                    System.out.println(img15 + " img15 ");
+//                } else if (i == 22) {
+//                    img16 = e2;
+//                    System.out.println(img16 + " img16 ");
+//                } else if (i == 23) {
+//                    img17 = e2;
+//                    System.out.println(img17 + " img17 ");
+//                }
+//            }
+//        } catch (IOException e) {
+//            System.out.println("에러 발생" + e.getMessage());
+//            e.printStackTrace();
+//        }
+//
+//        try { // DB 에 데이터 넣는 구문
+//
+//            String sql = "INSERT INTO crawling(count,placeType,created,timeType,img_source)values(?,?,now(),?,?)";
+//
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+//            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nawa", "root", "QhrtnswoTkddl1!6");
+//
+//            System.out.println(" ");
+//            System.out.println("연결 됐습니다.");
+//            System.out.println(" ");
+//
+//            pstmt = con.prepareStatement(sql);
+//
+//            pstmt.setInt(1,0);                    //count
+//            pstmt.setString(2,"카페 [안온]");   //placeType
+//            pstmt.setString(3,"실시간");           //timeType
+//            pstmt.setString(4,img1);                //img_source
+//
+//            pstmt.executeUpdate();
+//
+//            System.out.println("확인");
+//
+//            pstmt.close();
+//            con.close();
+//
+//        } catch (ClassNotFoundException e) {
+//            System.err.println(" 에러가 났습니다. (드라이버 로딩 실패) " + e.getMessage());
+//        } catch (SQLException e) {
+//            System.err.println("에러 발생 . " + e.getMessage());
+//            e.printStackTrace();
+//        }
 
     }
 }
